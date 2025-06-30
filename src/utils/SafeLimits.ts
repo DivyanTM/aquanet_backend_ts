@@ -1,0 +1,9 @@
+export enum SafeLimits{
+    PH_MIN=6.5,
+    PH_MAX=8.5,
+    TURBIDITY_MAX=5,
+    TEMP_MIN=10,
+    TEMP_MAX=35,
+    CONDUCTIVITY_MIN=300,
+    CONDUCTIVITY_MAX=800,
+}
