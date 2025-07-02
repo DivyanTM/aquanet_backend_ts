@@ -3,6 +3,7 @@ import {Request,Response} from "express";
 import {SensorData} from "../models/sensorData"
 import {emitData} from "../utils/SocketUtil";
 import {SafeLimits} from "../utils/SafeLimits";
+import {sendAlert} from "../utils/messenger";
 
 export async function createRecord(req:Request,res:Response):Promise<void>{
 
@@ -25,6 +26,13 @@ export async function createRecord(req:Request,res:Response):Promise<void>{
 
     if(unsafeParams.length){
        emitData("limitAlert",unsafeParams);
+       const message : string =`
+       The following water quality parameters exceeded or below the safe limits, please make alternate arrangements.
+       => ${unsafeParams}`;`
+        -  AquaNet
+       `;
+        const phone : string =`+917010982990`;
+        sendAlert(phone,message);
     }
 
     emitData("data",JSON.stringify(createdData));
